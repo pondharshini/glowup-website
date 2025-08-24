@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Skincare Recommender</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f8f9fa; margin: 0; padding: 0; }
+    header { background: #e67e22; color: white; text-align: center; padding: 20px; }
+    .container { max-width: 800px; margin: auto; padding: 20px; background: white; border-radius: 10px; margin-top: 30px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2, h3 { color: #e67e22; }
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    input[type="text"], select {
+      width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px;
+    }
+    button {
+      background: #e67e22; color: white; padding: 10px 20px; border: none;
+      margin-top: 20px; border-radius: 5px; cursor: pointer;
+    }
+    button:hover { background: #ca6f1e; }
+    .result { margin-top: 30px; padding: 20px; background: #fef5e7; border-radius: 10px; }
+    .product { margin-top: 15px; padding: 10px; background: #fff; border-left: 5px solid #e67e22; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .product a { color: #e67e22; font-weight: bold; text-decoration: none; }
+    .product a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Smart Skincare Recommender</h1>
+    <p>Get personalized product and care tips for your skin type</p>
+  </header>
+
+  <div class="container">
+    <h2>Skincare Quiz</h2>
+    <form id="quizForm">
+      <label>Skin Concern</label>
+      <select id="skinConcern">
+        <option value="">-- Select --</option>
+        <option value="acne">Acne</option>
+        <option value="dry">Dry Skin</option>
+        <option value="oily">Oily Skin</option>
+        <option value="pigmentation">Hyperpigmentation</option>
+        <option value="aging">Aging / Wrinkles</option>
+      </select>
+
+      <label>Skin Type</label>
+      <select id="skinType">
+        <option value="">-- Select --</option>
+        <option value="dry">Dry</option>
+        <option value="oily">Oily</option>
+        <option value="combination">Combination</option>
+        <option value="sensitive">Sensitive</option>
+      </select>
+
+      <label>Current Routine (optional)</label>
+      <input type="text" id="routine" placeholder="e.g., Cleanser + Moisturizer + Sunscreen" />
+
+      <label>Goals</label>
+      <input type="text" id="goal" placeholder="e.g., Clear acne, fade dark spots" />
+
+      <button type="button" onclick="generateSkincarePlan()">Get Skincare Plan</button>
+    </form>
+
+    <div class="result" id="result" style="display:none;"></div>
+  </div>
+
+  <script>
+    function generateSkincarePlan() {
+      const concern = document.getElementById('skinConcern').value;
+      const skinType = document.getElementById('skinType').value;
+      const routine = document.getElementById('routine').value;
+      const goal = document.getElementById('goal').value;
+      const result = document.getElementById('result');
+      result.style.display = 'block';
+
+      if (!concern) {
+        result.innerHTML = "<p>Please select a skin concern.</p>";
+        return;
+      }
+
+      let content = `<h3>Your Personalized Skincare Plan</h3>`;
+
+      if (concern === "acne") {
+        content += `
+          <div class="product">
+            <strong> Cleanser:</strong> CeraVe Foaming Facial Cleanser<br>
+            <a href="https://www.cerave.com/skincare/cleansers/foaming-facial-cleanser" target="_blank">Visit Official Site</a>
+          </div>
+          <div class="product">
+            <strong> Treatment:</strong> Paula's Choice 2% BHA Liquid Exfoliant<br>
+            <a href="https://www.paulaschoice.com/skin-perfecting-2pct-bha-liquid-exfoliant/201.html" target="_blank">View Product</a>
+          </div>
+          <div class="product">
+            <strong> Diet Tip:</strong> Reduce dairy/sugar, increase zinc & omega-3 (seeds, fish).
+          </div>`;
+      }
+
+      if (concern === "dry") {
+        content += `
+          <div class="product">
+            <strong> Cleanser:</strong> Vanicream Gentle Cleanser<br>
+            <a href="https://www.vanicream.com/product/gentle-facial-cleanser" target="_blank">Official Link</a>
+          </div>
+          <div class="product">
+            <strong> Moisturizer:</strong> CeraVe Moisturizing Cream<br>
+            <a href="https://www.cerave.com/skincare/moisturizers/moisturizing-cream" target="_blank">CeraVe Site</a>
+          </div>
+          <div class="product">
+            <strong> Diet Tip:</strong> Drink lots of water, add healthy fats (avocados, nuts).
+          </div>`;
+      }
+
+      if (concern === "oily") {
+        content += `
+          <div class="product">
+            <strong> Cleanser:</strong> La Roche-Posay Effaclar Gel Cleanser<br>
+            <a href="https://www.laroche-posay.us/oily-skin/effectively-clean-oily-skin" target="_blank">La Roche-Posay</a>
+          </div>
+          <div class="product">
+            <strong> Toner:</strong> The Ordinary Niacinamide 10% + Zinc 1%<br>
+            <a href="https://theordinary.com/en-us/niacinamide-10-zinc-1-201.html" target="_blank">View Product</a>
+          </div>
+          <div class="product">
+            <strong> Diet Tip:</strong> Avoid fried foods, hydrate well, take B-vitamins.
+          </div>`;
+      }
+
+      if (concern === "pigmentation") {
+        content += `
+          <div class="product">
+            <strong> Serum:</strong> The Ordinary Alpha Arbutin 2% + HA<br>
+            <a href="https://theordinary.com/en-us/alpha-arbutin-2-ha-201.html" target="_blank">Product Page</a>
+          </div>
+          <div class="product">
+            <strong> Sunscreen:</strong> La Roche-Posay Anthelios SPF 60<br>
+            <a href="https://www.laroche-posay.us/sunscreen" target="_blank">Official Link</a>
+          </div>
+          <div class="product">
+            <strong> Diet Tip:</strong> Vitamin C foods (citrus, bell peppers), limit sun exposure.
+          </div>`;
+      }
+
+      if (concern === "aging") {
+        content += `
+          <div class="product">
+            <strong> Night Serum:</strong> Olay Regenerist Retinol 24<br>
+            <a href="https://www.olay.com/retinol" target="_blank">Olay Official</a>
+          </div>
+          <div class="product">
+            <strong> Day Cream:</strong> Neutrogena Rapid Wrinkle Repair SPF 30<br>
+            <a href="https://www.neutrogena.com/anti-aging" target="_blank">Neutrogena Site</a>
+          </div>
+          <div class="product">
+            <strong> Diet Tip:</strong> Antioxidants, collagen-boosters (berries, leafy greens).
+          </div>`;
+      }
+
+      content += `
+        <div class="product">
+          <strong> Your Skin Type:</strong> ${skinType ? skinType : "Not specified"}
+        </div>
+        <div class="product">
+          <strong> Your Current Routine:</strong> ${routine ? routine : "Not specified"}
+        </div>
+        <div class="product">
+          <strong> Goal:</strong> ${goal || "Stay consistent with your new routine."}
+        </div>`;
+
+      result.innerHTML = content;
+    }
+  </script>
+</body>
+</html>

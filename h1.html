@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Haircare Recommender</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f7fa; margin: 0; padding: 0; }
+    header { background: #2e86de; color: white; text-align: center; padding: 20px; }
+    .container { max-width: 800px; margin: auto; padding: 20px; background: #fff; border-radius: 10px; margin-top: 30px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2, h3 { color: #2e86de; }
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    input[type="text"], select, textarea {
+      width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px;
+    }
+    button {
+      background: #2e86de; color: white; padding: 10px 20px; border: none;
+      margin-top: 20px; border-radius: 5px; cursor: pointer;
+    }
+    button:hover { background: #1b4f72; }
+    .result { margin-top: 30px; padding: 20px; background: #eaf2f8; border-radius: 10px; }
+    .product { margin-top: 15px; padding: 10px; background: #fff; border-left: 5px solid #2e86de; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .product a { color: #2e86de; font-weight: bold; text-decoration: none; }
+    .product a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Smart Haircare Recommender</h1>
+    <p>Real solutions for real hair problems</p>
+  </header>
+
+  <div class="container">
+    <h2>Haircare Quiz</h2>
+    <form id="quizForm">
+      <label>Main Hair Concern</label>
+      <select id="concern">
+        <option value="">-- Select --</option>
+        <option value="hairfall">Hair Fall</option>
+        <option value="dandruff">Dandruff</option>
+        <option value="dry">Dryness</option>
+        <option value="frizz">Frizz</option>
+        <option value="oily">Oily Scalp</option>
+      </select>
+
+      <label>Duration of Problem</label>
+      <input type="text" id="duration" placeholder="e.g., 6 months, 1 year" />
+
+      <label>Scalp Type</label>
+      <select id="scalp">
+        <option value="">-- Select --</option>
+        <option value="dry">Dry</option>
+        <option value="oily">Oily</option>
+        <option value="flaky">Flaky</option>
+        <option value="normal">Normal</option>
+      </select>
+
+      <label>Wash Frequency</label>
+      <input type="text" id="wash" placeholder="e.g., 2x per week" />
+
+      <label>Heat Styling?</label>
+      <select id="heat">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select>
+
+      <label>Specific Goal</label>
+      <input type="text" id="goal" placeholder="e.g., faster growth, reduce breakage" />
+
+      <button type="button" onclick="generatePlan()">Get My Plan</button>
+    </form>
+
+    <div class="result" id="result" style="display:none;"></div>
+  </div>
+
+  <script>
+    function generatePlan() {
+      const concern = document.getElementById('concern').value;
+      const scalp = document.getElementById('scalp').value;
+      const wash = document.getElementById('wash').value;
+      const heat = document.getElementById('heat').value;
+      const goal = document.getElementById('goal').value;
+      const result = document.getElementById('result');
+      result.style.display = 'block';
+
+      let content = `<h3>Your Personalized Haircare Plan</h3>`;
+      if (!concern) {
+        result.innerHTML = "<p>Please select a main concern.</p>";
+        return;
+      }
+
+      if (concern === "hairfall") {
+        content += `
+          <div class="product">
+            <strong> Treatment:</strong> Minoxidil 5% Foam<br>
+            <strong>Use:</strong> Apply to dry scalp 1–2x daily. Supports regrowth.<br>
+            <a href="https://www.rogaine.com" target="_blank">Visit Official Site</a>
+          </div>
+          <div class="product">
+            <strong> Shampoo:</strong> Revita Hair Stimulating Shampoo<br>
+            <strong>Use:</strong> Use 3x weekly to strengthen follicles.<br>
+            <a href="https://dslaboratories.com/products/revita-shampoo" target="_blank">Official Link</a>
+          </div>
+          <div class="product">
+            <strong> Diet Tip:</strong> Eat high-protein, biotin-rich foods (eggs, nuts, lentils).
+          </div>`;
+      }
+
+      if (concern === "dandruff") {
+        content += `
+          <div class="product">
+            <strong> Shampoo:</strong> Nizoral 1% (Ketoconazole)<br>
+            <strong>Use:</strong> Use 2x/week for dandruff control.<br>
+            <a href="https://www.nizoral.com" target="_blank">Visit Nizoral.com</a>
+          </div>
+          <div class="product">
+            <strong> Tip:</strong> Rotate with a mild shampoo to avoid over-drying.
+          </div>
+          <div class="product">
+            <strong> Diet Tip:</strong> Increase zinc & probiotics; reduce sugar and dairy.
+          </div>`;
+      }
+
+      if (concern === "dry") {
+        content += `
+          <div class="product">
+            <strong> Conditioner:</strong> Olaplex No.5 Bond Maintenance<br>
+            <strong>Use:</strong> Deep hydration for brittle, dry hair.<br>
+            <a href="https://olaplex.com" target="_blank">Official Link</a>
+          </div>
+          <div class="product">
+            <strong> Treatment:</strong> Weekly coconut or argan oil mask
+          </div>
+          <div class="product">
+            <strong> Diet Tip:</strong> Omega-3 rich foods + hydration (water, fruits).
+          </div>`;
+      }
+
+      if (concern === "frizz") {
+        content += `
+          <div class="product">
+            <strong> Serum:</strong> John Frieda Frizz Ease Original Serum<br>
+            <strong>Use:</strong> Apply to damp hair before styling.<br>
+            <a href="https://www.johnfrieda.com/en-US/products/frizz-ease/" target="_blank">Official Site</a>
+          </div>
+          <div class="product">
+            <strong> Diet Tip:</strong> Add Vitamin E (nuts, seeds) to reduce dryness.
+          </div>`;
+      }
+
+      if (concern === "oily") {
+        content += `
+          <div class="product">
+            <strong> Shampoo:</strong> Paul Mitchell Tea Tree Special Shampoo<br>
+            <strong>Use:</strong> Refreshes oily scalp, use 2–3x/week.<br>
+            <a href="https://www.paulmitchell.com" target="_blank">Visit Brand</a>
+          </div>
+          <div class="product">
+            <strong> Diet Tip:</strong> Avoid fried foods; eat greens and fiber.
+          </div>`;
+      }
+
+      content += `<div class="product"><strong> Frequency:</strong> You should wash your hair: <em>${wash}</em>. Avoid excessive washing if your scalp is dry.</div>`;
+      content += `<div class="product"><strong> Heat Styling:</strong> ${heat === 'yes' ? "Minimize use and always use a heat protectant." : "Great! Heat-free is healthier."}</div>`;
+      content += `<div class="product"><strong> Goal:</strong> ${goal ? goal : 'Stay consistent with your routine for results.'}</div>`;
+
+      result.innerHTML = content;
+    }
+  </script>
+</body>
+</html>
